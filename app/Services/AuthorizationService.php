@@ -18,10 +18,10 @@ class AuthorizationService
             $routes = VendorMenu::whereNotNull('route')->pluck('route')->toArray();
             
             if (in_array($currentRoute, $routes)) {
-                $vendor_privileges = VendorPrivilege::join('menus', 'menus.id', '=', 'vendor_privileges.menu_id')
+                $vendor_privileges = VendorPrivilege::join('vendor_menus', 'vendor_menus.id', '=', 'vendor_privileges.menu_id')
                     ->where('vendor_privileges.role_id', $user->type)
-                    ->whereNotNull('menus.route')
-                    ->pluck('menus.route')
+                    ->whereNotNull('vendor_menus.route')
+                    ->pluck('vendor_menus.route')
                     ->toArray();
                 return in_array($currentRoute, $vendor_privileges);
             }
@@ -44,12 +44,10 @@ class AuthorizationService
 
         // Cache the vendor_privileges for the user's role
         $vendor_privileges = Cache::remember("role_{$user_role_id}_vendor_privileges", 60, function () use ($user_role_id) {
-            return VendorPrivilege::join('menus', 'menus.id', '=', 'vendor_privileges.menu_id')
+            return VendorPrivilege::join('vendor_menus', 'vendor_menus.id', '=', 'vendor_privileges.menu_id')
                             ->where('vendor_privileges.role_id', $user_role_id)
                             ->pluck('menu_id')->toArray();
         });
-
-
         // Check if the user is a superadmin or if the menu ID is in the user's vendor_privileges
         return $is_superadmin || in_array($menu_id, $vendor_privileges);
     }

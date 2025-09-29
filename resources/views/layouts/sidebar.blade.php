@@ -6,11 +6,21 @@
                             ->get()
                             ->toArray();
 @endphp
-<aside class="main-sidebar sidebar-dark-primary elevation-0 bg-warning">
+<aside class="main-sidebar sidebar-dark-primary elevation-0" style="background-color: #0dcaf0;">
     <a href="{{ route('profile.update-details') }}" class="brand-link">
-        <img src="{{ $userImage }}" alt="{{ $basicInfo->title }} Logo" class="brand-image img-circle elevation-3"
-            style="opacity: .8" height="30" width="30">
-        <span class="brand-text font-weight-dark text-dark">{{ Auth::guard('admin')->user()->name }}</span>
+        @php
+            $imagePath   = env('UPLOAD_PATH') . '/vendor-basic-info/' . $vendorBasicInfo->logo;
+            $imageUrl    = env('UPLOAD_URL') . '/vendor-basic-info/' . $vendorBasicInfo->logo;
+            $placeholder = asset('public/admin-assets/dist/img/avatar5.png');
+            $logo   = !empty($vendorBasicInfo->logo) && File::exists($imagePath) ? $imageUrl : $placeholder;
+        @endphp
+        <img src="{{ $logo }}" 
+            alt="{{ $vendorBasicInfo->title }} Profile" 
+            class="brand-image img-circle elevation-3"
+            style="opacity: .8" 
+            height="30" 
+            width="30">
+        <span class="brand-text font-weight-dark text-dark">{{ $vendorBasicInfo->title }}</span>
     </a>
     <style>
         .cust-bg-info {

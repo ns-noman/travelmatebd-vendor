@@ -11,7 +11,7 @@ use App\Http\Controllers\Controller;
 use Yajra\DataTables\Facades\DataTables;
 use Auth;
 
-class RoleController extends Controller
+class VendorRoleController extends Controller
 {
     protected $breadcrumb;
     public function __construct(){$this->breadcrumb = ['title'=>'Roles'];}
@@ -37,6 +37,7 @@ class RoleController extends Controller
     public function store(Request $request)
     {
         $data['created_by'] = Auth::guard('admin')->user()->id;
+        $data['vendor_id'] = $this->getVendorId();
         $data['role'] = $request->role;
         $role = VendorRole::create($data);
         $menu_ids = $request->menu_id;
@@ -44,6 +45,7 @@ class RoleController extends Controller
         if($menu_ids && (!in_array(1,$menu_ids))) $menu_ids[count($menu_ids)] = 1;
 
         foreach($menu_ids as $key => $menu_id){
+            $data2['vendor_id'] = $this->getVendorId();
             $data2['role_id'] = $role->id;
             $data2['menu_id'] = $menu_id;
             VendorPrivilege::create($data2);
@@ -63,6 +65,7 @@ class RoleController extends Controller
             $menu_ids[count($menu_ids)] = '1';
         }
         foreach ($menu_ids as $key => $menu_id){
+            $data2['vendor_id'] = $this->getVendorId();
             $data2['role_id'] = $role->id;
             $data2['menu_id'] = $menu_id;
             VendorPrivilege::create($data2);

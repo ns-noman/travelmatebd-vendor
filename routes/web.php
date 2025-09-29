@@ -40,7 +40,7 @@ Route::namespace('App\Http\Controllers\backend\items')->group(function(){
 
 Route::prefix('vendor')->group(function () {
     Route::namespace('App\Http\Controllers\backend')->group(function(){
-        Route::prefix('login')->controller(AdminController::class)->group(function(){
+        Route::prefix('login')->controller(UserController::class)->group(function(){
             Route::match(['get', 'post'],'', 'login')->name('admin.login');
         });
         Route::middleware('admin')->group(function (){
@@ -116,29 +116,21 @@ Route::prefix('vendor')->group(function () {
             });
 
             
-            Route::prefix('logout')->controller(AdminController::class)->group(function(){
+            Route::prefix('logout')->controller(UserController::class)->group(function(){
                 Route::post('', 'logout')->name('admin.logout');
             });
             Route::prefix('dashboard')->controller(DashboardController::class)->group(function(){
                 Route::get('','index')->name('dashboard.index');
                 Route::get('summery-data/{dateRange?}','summeryData')->name('dashboard.summery-data');
             });
-            Route::prefix('basic-infos')->controller(BasicInfoController::class)->group(function(){
-                Route::get('','index')->name('basic-infos.index');
-                Route::put('update/{id}','update')->name('basic-infos.update');
-                Route::get('edit/{id?}','edit')->name('basic-infos.edit');
+            Route::prefix('vendor-basic-infos')->controller(VendorBasicInfoController::class)->group(function(){
+                Route::get('','index')->name('vendor-basic-infos.index');
+                Route::put('update/{id}','update')->name('vendor-basic-infos.update');
+                Route::get('edit/{id?}','edit')->name('vendor-basic-infos.edit');
             });
-            Route::prefix('admin')->group(function(){
-                Route::prefix('roles')->controller(RoleController::class)->group(function(){
-                    Route::get('','index')->name('roles.index');
-                    Route::get('create','createOrEdit')->name('roles.create');
-                    Route::get('edit/{id?}','createOrEdit')->name('roles.edit');
-                    Route::post('store','store')->name('roles.store');
-                    Route::put('update/{id}','update')->name('roles.update');
-                    Route::delete('delete/{id}','destroy')->name('roles.destroy');
-                    Route::get('all-roles','allRoles')->name('roles.all-roles');
-                });
-                Route::prefix('users')->controller(AdminController::class)->group(function(){
+            Route::prefix('user')->group(function(){
+                
+                Route::prefix('users')->controller(UserController::class)->group(function(){
                     Route::get('','index')->name('users.index');
                     Route::get('create','createOrEdit')->name('users.create');
                     Route::get('edit/{id?}','createOrEdit')->name('users.edit');
@@ -147,12 +139,21 @@ Route::prefix('vendor')->group(function () {
                     Route::delete('delete/{id}','destroy')->name('users.destroy');
                     Route::get('all-users','allAdmins')->name('users.all-users');
                 });
+                Route::prefix('roles')->controller(VendorRoleController::class)->group(function(){
+                    Route::get('','index')->name('roles.index');
+                    Route::get('create','createOrEdit')->name('roles.create');
+                    Route::get('edit/{id?}','createOrEdit')->name('roles.edit');
+                    Route::post('store','store')->name('roles.store');
+                    Route::put('update/{id}','update')->name('roles.update');
+                    Route::delete('delete/{id}','destroy')->name('roles.destroy');
+                    Route::get('all-roles','allRoles')->name('roles.all-roles');
+                });
             });
-            Route::prefix('password')->controller(AdminController::class)->group(function(){
-                Route::match(['get', 'post'],'update/{id?}','updatePassword')->name('admin.password.update');
-                Route::post('check-password','checkPassword')->name('admin.password.check');
+            Route::prefix('password')->controller(UserController::class)->group(function(){
+                Route::match(['get', 'post'],'update/{id?}','updatePassword')->name('user.password.update');
+                Route::post('check-password','checkPassword')->name('user.password.check');
             });
-            Route::prefix('profile')->controller(AdminController::class)->group(function(){
+            Route::prefix('profile')->controller(UserController::class)->group(function(){
                 Route::match(['get', 'post'],'update-details/{id?}','updateDetails')->name('profile.update-details');;
             });
         });

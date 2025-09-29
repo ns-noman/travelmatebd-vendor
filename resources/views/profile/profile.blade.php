@@ -1,7 +1,7 @@
-@extends('layouts.admin.master')
+@extends('layouts.master')
 @section('content')
     <div class="content-wrapper">
-        @include('layouts.admin.content-header')
+        @include('layouts.content-header')
         <section class="content">
             <div class="container-fluid">
                 <div class="row">
@@ -34,12 +34,21 @@
                                             <input type="text" class="form-control" id="mobile" name="mobile"
                                                 value="{{ Auth::guard('admin')->user()->mobile }}" placeholder="Mobile" required>
                                         </div>
+                                        @php
+                                            $user       = Auth::guard('admin')->user();
+                                            $imagePath  = env('UPLOAD_PATH') . '/users/' . $user->image;
+                                            $imageUrl   = env('UPLOAD_URL') . '/users/' . $user->image;
+                                            $placeholder = asset('public/admin-assets/dist/img/avatar5.png');
+                                        @endphp
+
                                         <div class="form-group col-sm-6 col-md-6 col-lg-6">
                                             <label class="mpbtn col-md-3" style="cursor:pointer">
-                                                <img id="image_view" style="max-width:100%" class="img-thumbnail" src="{{ asset('public/uploads/admin/'. (Auth::guard('admin')->user()->image? Auth::guard('admin')->user()->image : 'placeholder.png')) }}">
+                                                <img id="image_view" style="max-width:100%" class="img-thumbnail"
+                                                    src="{{ !empty($user->image) && File::exists($imagePath) ? $imageUrl : $placeholder }}">
                                                 <input id="image" name="image" style="display:none" onchange="profile(this);" type="file" accept="image/*">
                                             </label>
                                         </div>
+
                                         
                                     </div>
                                 </div>

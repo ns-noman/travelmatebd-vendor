@@ -1,7 +1,7 @@
-@extends('layouts.admin.master')
+@extends('layouts.master')
 @section('content')
 <div class="content-wrapper">
-    @include('layouts.admin.content-header')
+    @include('layouts.content-header')
     <section class="content">
         <div class="container-fluid">
             <div class="row justify-content-center">
@@ -10,7 +10,7 @@
                         <div class="card-header">
                             <h3 class="card-title">Change Password</h3>
                         </div>
-                        <form id="password-form" method="POST" action="{{ route('admin.password.update', Auth::guard('admin')->user()->id) }}">
+                        <form id="password-form" method="POST" action="{{ route('user.password.update', Auth::guard('admin')->user()->id) }}">
                             @csrf
                             <div class="card-body">
                                 <div class="form-group">
@@ -64,7 +64,7 @@
             }
 
             try {
-                const res = await nsAjaxPost("{{ route('admin.password.check') }}", {
+                const res = await nsAjaxPost("{{ route('user.password.check') }}", {
                     current_password: password
                 });
 

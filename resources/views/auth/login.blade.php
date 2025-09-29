@@ -1,5 +1,9 @@
 @php
     $basicInfo = App\Models\BasicInfo::first()->toArray();
+    $imagePath = env('UPLOAD_PATH') . '/basic-info/' . $basicInfo['logo'];
+    $imageUrl = env('UPLOAD_URL') . '/basic-info/' . $basicInfo['logo'];
+    $placeholder = env('PLACEHOLDER');
+    $logo = !empty($basicInfo['logo']) && File::exists($imagePath) ? $imageUrl : $placeholder;
 @endphp
 <!DOCTYPE html>
 <html lang="en">
@@ -7,7 +11,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>{{ $basicInfo['title'] }}</title>
-    <link rel="shortcut icon" href="{{ asset('public/uploads/basic-info/'. $basicInfo['favicon']) }}">
+    <link rel="shortcut icon" href="{{ asset('public/uploads/basic-info/' . $basicInfo['favicon']) }}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -31,7 +35,8 @@
         }
 
         .main-content {
-            width: 800px; /* Fixed width for main content */
+            width: 800px;
+            /* Fixed width for main content */
             display: flex;
             border-radius: 20px;
             box-shadow: 0 5px 5px rgba(0, 0, 0, .4);
@@ -167,7 +172,6 @@
             }
         }
     </style>
-    {{-- <script src="https://www.google.com/recaptcha/enterprise.js?render=6Lc1Qy4qAAAAAAQ8Gnv1aPGOVVCUSAky1U_loJan"></script> --}}
 </head>
 
 <body>
@@ -177,7 +181,8 @@
             <div class="company__info">
                 <div class="company__logo">
                     <a href="{{ route('admin.login') }}">
-                        <img style="width: 181px; height: 121px;" src="{{ asset('public/uploads/basic-info/'. $basicInfo['logo']) }}" alt="{{ $basicInfo['title'] }}">
+                        <img style="width: 181px; height: 121px;" src="{{ $logo }}"
+                            alt="{{ $basicInfo['title'] }}">
                     </a>
                 </div>
                 <h4 class="company__title">{{ $basicInfo['title'] }}</h4>
@@ -188,7 +193,8 @@
                     <form id="loginForm" method="POST" action="{{ route('admin.login') }}" class="form-group">
                         @csrf
                         <div class="form-group">
-                            <input type="text" name="email" id="username" class="form__input" placeholder="Email" autofocus value="{{ old('email') }}">
+                            <input type="text" name="email" id="username" class="form__input" placeholder="Email"
+                                autofocus value="{{ old('email') }}">
                             @if ($errors->has('email'))
                                 <span class="error-message">{{ $errors->first('email') }}</span>
                             @endif
@@ -222,32 +228,18 @@
             </div>
         </div>
     </div>
-    {{-- <script>
-        function handleSubmit(event) {
-            event.preventDefault();
-            grecaptcha.enterprise.ready(function() {
-                grecaptcha.enterprise.execute('6Lc1Qy4qAAAAAAQ8Gnv1aPGOVVCUSAky1U_loJan', {action: 'submit'}).then(function(token) {
-                    document.getElementById('recaptchaResponse').value = token;
-                    document.getElementById('loginForm').submit();
-                });
-            });
-        }
-        document.getElementById('loginForm').addEventListener('submit', handleSubmit);
-    </script> --}}
-
     <script>
         function togglePassword() {
             const passwordField = document.getElementById("password");
             const toggleIcon = document.querySelector(".toggle-password");
-            
             const isPasswordVisible = passwordField.type === "text";
             passwordField.type = isPasswordVisible ? "password" : "text";
             toggleIcon.classList.toggle("fa-eye", isPasswordVisible);
             toggleIcon.classList.toggle("fa-eye-slash", !isPasswordVisible);
-            
             passwordField.focus();
         }
     </script>
 
 </body>
+
 </html>

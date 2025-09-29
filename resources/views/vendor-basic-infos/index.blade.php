@@ -1,11 +1,11 @@
 @extends('layouts.master')
 @section('content')
-    <div class="content-wrapper">
-        @include('layouts.content-header')
-        <section class="content">
-            <div class="container-fluid">
-                <div class="row">
-                    @if($data['basicInfo'])
+<div class="content-wrapper">
+    @include('layouts.content-header')
+    <section class="content">
+        <div class="container-fluid">
+            <div class="row">
+                @if ($data['basicInfo'])
                     <section class="col-lg-12">
                         <div class="card">
                             <div class="card-body">
@@ -49,22 +49,31 @@
                                                     <th>Address</th>
                                                     <td>{{ $data['basicInfo']->address }}</td>
                                                 </tr>
+                                                @php
+                                                    $uploadPath   = env('UPLOAD_PATH') . '/vendor-basic-info/';
+                                                    $uploadUrl    = env('UPLOAD_URL') . '/vendor-basic-info/';
+                                                    $placeholder  = env('PLACEHOLDER', asset('public/admin-assets/dist/img/avatar5.png'));
+
+                                                    $logoPath     = $uploadPath . ($data['basicInfo']->logo ?? '');
+                                                    $faviconPath  = $uploadPath . ($data['basicInfo']->favicon ?? '');
+
+                                                    $logoImage    = !empty($data['basicInfo']->logo) && File::exists($logoPath) ? $uploadUrl . $data['basicInfo']->logo : $placeholder;
+                                                    $faviconImage = !empty($data['basicInfo']->favicon) && File::exists($faviconPath) ? $uploadUrl . $data['basicInfo']->favicon : $placeholder;
+                                                @endphp
+
                                                 <tr>
                                                     <th>Logo</th>
                                                     <td>
-                                                        @if ($data['basicInfo']->logo)
-                                                            <img src="{{ asset('public/uploads/basic-info/' . $data['basicInfo']->logo) }}" height="100px" width="100px">
-                                                        @endif
+                                                        <img src="{{ $logoImage }}" alt="Logo" height="100" width="100">
                                                     </td>
                                                 </tr>
                                                 <tr>
                                                     <th>Fav Icon</th>
                                                     <td>
-                                                        @if ($data['basicInfo']->favicon)
-                                                            <img src="{{ asset('public/uploads/basic-info/' . $data['basicInfo']->favicon) }}" height="32" width="32px">
-                                                        @endif
+                                                        <img src="{{ $faviconImage }}" alt="Favicon" height="32" width="32">
                                                     </td>
                                                 </tr>
+
                                                 <tr hidden>
                                                     <th>Web Link</th>
                                                     <td>{{ $data['basicInfo']->web_link }}</td>
@@ -85,7 +94,6 @@
                                                     <th>Youtube Link</th>
                                                     <td>{{ $data['basicInfo']->youtube_link }}</td>
                                                 </tr>
-
                                                 <tr hidden>
                                                     <th>Assets value</th>
                                                     <td>{{ $data['basicInfo']->assets_value }}</td>
@@ -124,13 +132,15 @@
                                 </div>
                             </div>
                             <div class="card-footer">
-                                <a href="{{ route('basic-infos.edit', $data['basicInfo']->id) }}"class="btn btn-primary">Edit</a>
+                                <a href="{{ route('vendor-basic-infos.edit', $data['basicInfo']->id) }}" class="btn btn-primary">
+                                    Edit
+                                </a>
                             </div>
                         </div>
                     </section>
-                    @endif
-                </div>
+                @endif
             </div>
-        </section>
-    </div>
+        </div>
+    </section>
+</div>
 @endsection

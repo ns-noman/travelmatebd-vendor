@@ -32,4 +32,8 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
         'status' => 'boolean',
     ];
+    public function vendor_role()
+    {
+        return $this->belongsTo(VendorRole::class, 'type');
+    }
 }

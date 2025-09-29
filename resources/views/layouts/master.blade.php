@@ -1,7 +1,6 @@
 @php
     $basicInfo = App\Models\BasicInfo::first();
-    $userImage = asset('public/admin-assets/dist/img/avatar5.png');
-    if(Auth::guard('admin')->user()->image) $userImage = asset('public/uploads/admin/'. Auth::guard('admin')->user()->image);
+    $vendorBasicInfo = App\Models\VendorBasicInfo::where('vendor_id',Auth::guard('admin')->user()->vendor_id)->first();
 @endphp
 <!DOCTYPE html>
 <html lang="en">

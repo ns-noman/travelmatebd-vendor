@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: Sep 28, 2025 at 01:03 PM
+-- Generation Time: Sep 29, 2025 at 12:56 PM
 -- Server version: 8.0.30
 -- PHP Version: 8.2.28
 
@@ -815,7 +815,6 @@ CREATE TABLE `users` (
   `id` bigint UNSIGNED NOT NULL,
   `vendor_id` bigint NOT NULL,
   `name` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `username` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL,
   `type` int NOT NULL,
   `mobile` varchar(50) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `email` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
@@ -831,8 +830,13 @@ CREATE TABLE `users` (
 -- Dumping data for table `users`
 --
 
-INSERT INTO `users` (`id`, `vendor_id`, `name`, `username`, `type`, `mobile`, `email`, `password`, `image`, `status`, `remember_token`, `created_at`, `updated_at`) VALUES
-(1, 1, 'Malek Azad', '', 1, '01498898955', 'malekazad@gmail.com', '$2y$10$.TiNLk76jfZurFW7upg00O.no8TkBYGUUmteWJKVMOmQbBZBlLqSK', NULL, 1, NULL, '2025-09-28 10:57:14', '2025-09-28 10:59:42');
+INSERT INTO `users` (`id`, `vendor_id`, `name`, `type`, `mobile`, `email`, `password`, `image`, `status`, `remember_token`, `created_at`, `updated_at`) VALUES
+(1, 1, 'Vendor', 1, '01898898955', 'vendor@gmail.com', '$2y$10$.TiNLk76jfZurFW7upg00O.no8TkBYGUUmteWJKVMOmQbBZBlLqSK', 'user-1759146890.png', 1, 'hOLdvB0XnIC9qbE9ANCW2bkMa8OCtAkqajr8qZ20sOXYwelss79QUJOLYdw1', '2025-09-28 10:57:14', '2025-09-29 11:56:16'),
+(4, 4, 'JR Tour & Travels', 1, '01744-217237', 'jrtourandtravels37@gmail.com', '$2y$10$sgNZgddRpSBf0zN9tDWqEeNUd2MbWHgwsNdR2vZ9XGqPs0f7QlHO.', 'user-1759140698.jpg', 1, NULL, '2025-09-29 08:50:34', '2025-09-29 10:11:38'),
+(5, 4, 'Brennan Atkins', 5, '+8801839317038', 'qiqawina@mailinator.com', '$2y$10$sgNZgddRpSBf0zN9tDWqEeNUd2MbWHgwsNdR2vZ9XGqPs0f7QlHO.', NULL, 1, NULL, '2025-09-29 09:48:55', '2025-09-29 09:55:43'),
+(6, 4, 'Raya Vaughan', 6, '+8801839317038', 'hyrezowove@mailinator.com', '$2y$10$sgNZgddRpSBf0zN9tDWqEeNUd2MbWHgwsNdR2vZ9XGqPs0f7QlHO.', NULL, 1, NULL, '2025-09-29 09:49:47', '2025-09-29 11:09:52'),
+(7, 4, 'Xandra Klein', 5, '34567890', 'hybu@mailinator.com', '$2y$10$kE5ImwH1prutPrBcprDjberNIELh/O6qytNawlY9T6gHEgevonpMq', NULL, 1, NULL, '2025-09-29 09:55:18', '2025-09-29 09:55:31'),
+(8, 1, 'Rowan Christensen', 7, 'Dolorum amet cillum', 'host@gmail.com', '$2y$10$oNcU17BTly9UP1aeipqdpOW0BjHpl4KI6hNvwPPmfLU8PUoIW9DNO', NULL, 1, 'aMyJwy0yIQxrv5XxOUYdumqCHdmuNMixF9rtVfXuX5BR8cnt6PH1NA0ugOjP', '2025-09-29 12:05:35', '2025-09-29 12:36:55');
 
 -- --------------------------------------------------------
 
@@ -860,7 +864,8 @@ CREATE TABLE `vendors` (
 --
 
 INSERT INTO `vendors` (`id`, `vendor_type`, `name`, `contact_person`, `phone`, `email`, `address`, `country`, `commission_rate`, `status`, `created_at`, `updated_at`) VALUES
-(1, 'airline', 'Malek Azad', 'Shoriful', '01498898955', 'malekazad@gmail.com', 'Plot No.-314/A, Road-18, Block-E, Bashundhara Avenue Road, Bashundhara Residential Area, Dhaka 1229, Bangladesh.', 'Bangladesh', '5.00', 1, '2025-09-28 10:57:14', '2025-09-28 10:59:42');
+(1, 'tour_operator', 'Adventure Tour Group BD', 'Shoriful', '01498898955', 'malekazad@gmail.com', 'Plot No.-314/A, Road-18, Block-E, Bashundhara Avenue Road, Bashundhara Residential Area, Dhaka 1229, Bangladesh.', 'Bangladesh', '5.00', 1, '2025-09-28 10:57:14', '2025-09-29 08:54:03'),
+(4, 'tour_operator', 'JR Tour & Travels', 'N/A', '01744-217237', 'jrtourandtravels37@gmail.com', NULL, 'Bangladesh', '5.00', 1, '2025-09-29 08:50:34', '2025-09-29 08:53:13');
 
 -- --------------------------------------------------------
 
@@ -891,7 +896,8 @@ CREATE TABLE `vendor_basic_infos` (
 --
 
 INSERT INTO `vendor_basic_infos` (`id`, `vendor_id`, `title`, `meta_keywords`, `meta_description`, `logo`, `favicon`, `phone`, `telephone`, `fax`, `email`, `location`, `address`, `created_at`, `updated_at`) VALUES
-(1, 1, 'Adventure Travel BD', 'Adventure Travel BD', 'Adventure Travel BD', 'logo-1759062566.jpg', 'favicon-1759062566.jpg', '+88 01306-170801', '234567', '23456789', 'info.adventuretourgroupbd@gmail.com', 'malekazad@gmail.com', '1st Floor Plat-96, Borobagh Market Boundary Rood Mirpur -2 , Dhaka-1216 , Mirpur, Bangladesh', NULL, '2025-09-28 12:45:43');
+(1, 1, 'Adventure Travel BD', 'Adventure Travel BD', 'Adventure Travel BD', 'logo-1759145154.jpg', 'favicon-1759145154.jpg', '+88 01306-170801', '234567', '23456789', 'info.adventuretourgroupbd@gmail.com', NULL, '1st Floor Plat-96, Borobagh Market Boundary Rood Mirpur -2 , Dhaka-1216 , Mirpur, Bangladesh', NULL, '2025-09-29 11:25:54'),
+(2, 4, 'Blaine Cruz', 'Blaine Cruz', 'Blaine Cruz', 'logo-1759144633.jpg', 'favicon-1759144633.jpg', '+1 (306) 861-9726', '+1 (306) 861-9726', '+1 (306) 861-9726', 'gituv@mailinator.com', 'Non voluptates adipi', 'Non voluptates adipi', '2025-09-29 08:50:34', '2025-09-29 11:17:13');
 
 -- --------------------------------------------------------
 
@@ -919,10 +925,12 @@ CREATE TABLE `vendor_menus` (
 
 INSERT INTO `vendor_menus` (`id`, `parent_id`, `srln`, `menu_name`, `navicon`, `is_side_menu`, `create_route`, `route`, `status`, `created_at`, `updated_at`) VALUES
 (1, 0, 1, 'Dashboard', '<i class=\"nav-icon fas fa-tachometer-alt\"></i>', 1, NULL, 'dashboard.index', 1, '2025-09-28 10:20:35', '2025-09-28 12:53:38'),
-(2, 0, 2, 'Settings', '<i class=\"nav-icon fa fa-cog\"></i>', 1, NULL, 'basic-infos.index', 1, '2025-09-28 10:22:18', '2025-09-28 10:22:33'),
+(2, 0, 2, 'Settings', '<i class=\"nav-icon fa fa-cog\"></i>', 1, NULL, 'vendor-basic-infos.index', 1, '2025-09-28 10:22:18', '2025-09-29 10:45:44'),
 (3, 0, 3, 'User Manage', '<i class=\"nav-icon fas fa-user-tie\"></i>', 1, NULL, NULL, 1, '2025-09-28 10:23:11', '2025-09-28 10:24:14'),
 (4, 3, 1, 'Roles', '<i class=\"far fa-dot-circle nav-icon\"></i>', 1, 'roles.create', 'roles.index', 1, '2025-09-28 10:23:58', '2025-09-28 12:57:36'),
-(5, 3, 2, 'Users', '<i class=\"far fa-dot-circle nav-icon\"></i>', 1, 'users.create', 'users.index', 1, '2025-09-28 10:24:47', '2025-09-28 10:24:47');
+(5, 3, 2, 'Users', '<i class=\"far fa-dot-circle nav-icon\"></i>', 1, 'users.create', 'users.index', 1, '2025-09-28 10:24:47', '2025-09-28 10:24:47'),
+(6, 2, 1, 'Edit', NULL, 0, NULL, 'vendor-basic-infos.edit', 1, '2025-09-29 10:46:05', '2025-09-29 10:46:05'),
+(7, 2, 2, 'Update', NULL, 0, NULL, 'vendor-basic-infos.update', 1, '2025-09-29 10:46:27', '2025-09-29 10:46:27');
 
 -- --------------------------------------------------------
 
@@ -944,11 +952,26 @@ CREATE TABLE `vendor_privileges` (
 --
 
 INSERT INTO `vendor_privileges` (`id`, `vendor_id`, `role_id`, `menu_id`, `created_at`, `updated_at`) VALUES
-(1, 0, 1, 1, '2025-09-28 12:42:32', '2025-09-28 12:42:32'),
-(2, 0, 1, 2, '2025-09-28 12:42:32', '2025-09-28 12:42:32'),
-(3, 0, 1, 3, '2025-09-28 12:42:32', '2025-09-28 12:42:32'),
-(4, 0, 1, 4, '2025-09-28 12:42:32', '2025-09-28 12:42:32'),
-(5, 0, 1, 5, '2025-09-28 12:42:32', '2025-09-28 12:42:32');
+(1, 0, 1, 1, '2025-09-28 06:42:32', '2025-09-28 06:42:32'),
+(2, 0, 1, 2, '2025-09-28 06:42:32', '2025-09-28 06:42:32'),
+(3, 0, 1, 3, '2025-09-28 06:42:32', '2025-09-28 06:42:32'),
+(4, 0, 1, 4, '2025-09-28 06:42:32', '2025-09-28 06:42:32'),
+(5, 0, 1, 5, '2025-09-28 06:42:32', '2025-09-28 06:42:32'),
+(6, 0, 4, 1, '2025-09-29 02:55:46', '2025-09-29 02:55:46'),
+(7, 0, 4, 2, '2025-09-29 02:55:46', '2025-09-29 02:55:46'),
+(8, 0, 4, 3, '2025-09-29 02:55:46', '2025-09-29 02:55:46'),
+(9, 0, 4, 4, '2025-09-29 02:55:46', '2025-09-29 02:55:46'),
+(10, 0, 4, 5, '2025-09-29 02:55:46', '2025-09-29 02:55:46'),
+(11, 0, 5, 1, '2025-09-29 03:10:16', '2025-09-29 03:10:16'),
+(12, 0, 5, 2, '2025-09-29 03:10:16', '2025-09-29 03:10:16'),
+(13, 0, 5, 3, '2025-09-29 03:10:16', '2025-09-29 03:10:16'),
+(14, 0, 5, 4, '2025-09-29 03:10:16', '2025-09-29 03:10:16'),
+(15, 0, 5, 5, '2025-09-29 03:10:16', '2025-09-29 03:10:16'),
+(16, 0, 6, 1, '2025-09-29 04:00:00', '2025-09-29 04:00:00'),
+(54, 1, 7, 1, '2025-09-29 12:49:37', '2025-09-29 12:49:37'),
+(55, 1, 7, 2, '2025-09-29 12:49:37', '2025-09-29 12:49:37'),
+(56, 1, 7, 6, '2025-09-29 12:49:37', '2025-09-29 12:49:37'),
+(57, 1, 7, 7, '2025-09-29 12:49:37', '2025-09-29 12:49:37');
 
 -- --------------------------------------------------------
 
@@ -960,6 +983,7 @@ CREATE TABLE `vendor_roles` (
   `id` bigint UNSIGNED NOT NULL,
   `vendor_id` bigint NOT NULL,
   `is_superadmin` tinyint NOT NULL DEFAULT '0',
+  `is_default` tinyint NOT NULL DEFAULT '0',
   `created_by` int DEFAULT NULL,
   `role` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
@@ -970,8 +994,12 @@ CREATE TABLE `vendor_roles` (
 -- Dumping data for table `vendor_roles`
 --
 
-INSERT INTO `vendor_roles` (`id`, `vendor_id`, `is_superadmin`, `created_by`, `role`, `created_at`, `updated_at`) VALUES
-(1, 1, 1, 1, 'Super Admin', '2025-09-28 10:57:14', '2025-09-28 12:42:32');
+INSERT INTO `vendor_roles` (`id`, `vendor_id`, `is_superadmin`, `is_default`, `created_by`, `role`, `created_at`, `updated_at`) VALUES
+(1, 1, 1, 1, 1, 'Super Admin', '2025-09-28 10:57:14', '2025-09-29 08:54:03'),
+(4, 4, 1, 1, 4, 'Super Admin', '2025-09-29 08:50:34', '2025-09-29 08:55:46'),
+(5, 4, 0, 0, 4, 'Manager', '2025-09-29 09:10:16', '2025-09-29 09:10:16'),
+(6, 4, 0, 0, 4, 'Host', '2025-09-29 10:00:00', '2025-09-29 10:00:00'),
+(7, 1, 0, 0, 1, 'Host', '2025-09-29 12:05:02', '2025-09-29 12:49:37');
 
 --
 -- Indexes for dumped tables
@@ -1083,7 +1111,6 @@ ALTER TABLE `roles`
 --
 ALTER TABLE `users`
   ADD PRIMARY KEY (`id`),
-  ADD UNIQUE KEY `users_username_unique` (`username`),
   ADD UNIQUE KEY `users_email_unique` (`email`);
 
 --
@@ -1214,37 +1241,37 @@ ALTER TABLE `roles`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT for table `vendors`
 --
 ALTER TABLE `vendors`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `vendor_basic_infos`
 --
 ALTER TABLE `vendor_basic_infos`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `vendor_menus`
 --
 ALTER TABLE `vendor_menus`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `vendor_privileges`
 --
 ALTER TABLE `vendor_privileges`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=58;
 
 --
 -- AUTO_INCREMENT for table `vendor_roles`
 --
 ALTER TABLE `vendor_roles`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

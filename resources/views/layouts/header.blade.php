@@ -22,25 +22,30 @@
                     </a>
                 </li>
                 <li class="nav-item dropdown no-arrow">
+                    @php
+                        $user        = Auth::guard('admin')->user();
+                        $imagePath   = env(key: 'UPLOAD_PATH') . '/users/' . $user->image;
+                        $imageUrl    = env('UPLOAD_URL') . '/users/' . $user->image;
+                        $placeholder = env('AVATAR');
+                        $userImage   = !empty($user->image) && File::exists($imagePath) ? $imageUrl : $placeholder;
+                        $user = App\Models\User::with('vendor_role')->find($user->id);
+                    @endphp
+
                     <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
-                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         <span class="mr-2 d-none d-lg-inline text-white-600 small">
-                            <b>
-                                @php
-                                    $admin = App\Models\Admin::with('role')->where('id',Auth::guard('admin')->user()->id)->first();
-                                @endphp
-                                {{ Str::ucfirst($admin->role->role) }}
-                            </b>
+                            <b>{{ Str::ucfirst($user->vendor_role->role) }}</b>
                         </span>
                         <img class="img-profile rounded-circle" src="{{ $userImage }}" height="30" width="30">
                     </a>
+
                     <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
                         aria-labelledby="userDropdown">
                         <a class="dropdown-item" href="{{ route('profile.update-details') }}">
                             <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
                             Profile
                         </a>
-                        <a class="dropdown-item" href="{{ route('admin.password.update') }}">
+                        <a class="dropdown-item" href="{{ route('user.password.update') }}">
                             <i class="fas fa-lock fa-sm fa-fw mr-2 text-gray-400"></i>
                             Update Password
                         </a>

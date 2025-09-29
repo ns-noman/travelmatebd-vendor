@@ -1,5 +1,11 @@
 <!-- Fav Icon -->
-<link rel="shortcut icon" type="image/x-icon" href="{{ asset('public/uploads/basic-info/'. $basicInfo->favicon) }}">
+@php
+    $faviconPath  = env('UPLOAD_PATH') . '/basic-info/' . ($basicInfo->favicon ?? '');
+    $faviconUrl   = env('UPLOAD_URL') . '/basic-info/' . ($basicInfo->favicon ?? '');
+    $placeholder  = '';
+    $faviconImage = !empty($basicInfo->favicon) && File::exists($faviconPath) ? $faviconUrl : $placeholder;
+@endphp
+<link rel="shortcut icon" type="image/x-icon" href="{{ $faviconImage }}">
 <!-- Google Font: Source Sans Pro -->
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
 <!-- Ionicons -->

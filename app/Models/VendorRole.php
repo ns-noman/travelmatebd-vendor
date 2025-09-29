@@ -15,4 +15,8 @@ class VendorRole extends Model
         'created_by',
         'role',
     ];
+    public function user()
+    {
+        return $this->belongsTo(User::class, 'created_by');
+    }
 }

@@ -14,5 +14,10 @@ class VendorPrivilege extends Model
         'role_id',
         'menu_id',
     ];
+
+    public function menu()
+    {
+        return $this->belongsTo(VendorMenu::class,'menu_id');
+    }
     
 }
